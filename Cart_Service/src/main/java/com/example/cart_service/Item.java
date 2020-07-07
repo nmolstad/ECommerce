@@ -5,14 +5,18 @@ public class Item {
     private String title;
     private String description;
     private double unitPrice;
+    private int quantity;
+    private double subtotal;
 
     public Item(){}
 
-    public Item(int id, String title, String description, double unitPrice) {
+    public Item(int id, String title, String description, double unitPrice, int quantity) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.unitPrice = unitPrice;
+        this.quantity = quantity;
+        calculateSubtotal();
     }
 
     public int getId() {
@@ -45,7 +49,27 @@ public class Item {
 
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
+        calculateSubtotal();
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+        calculateSubtotal();
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    private void calculateSubtotal(){
+        setSubtotal(quantity * unitPrice);
+    }
 }

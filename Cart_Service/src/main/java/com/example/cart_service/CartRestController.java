@@ -52,9 +52,9 @@ public class CartRestController {
     public void changeQuantity(@PathVariable String username, @PathVariable int itemId, @PathVariable int quantity) {
         Cart cart = cartRepository.findById(username).orElse(null);
         if (cart != null) {
-            for (Map.Entry<Item, Integer> entry : cart.getItems().entrySet()) {
-                if (entry.getKey().getId() == itemId) {
-                    cart.changeQuantity(entry.getKey(), quantity);
+            for (Item i: cart.getItems()) {
+                if(i.getId() == itemId){
+                    cart.changeQuantity(i, quantity);
                 }
             }
             cartRepository.save(cart);
@@ -75,9 +75,9 @@ public class CartRestController {
     public void removeItem(@PathVariable String username, @PathVariable int itemId) {
         Cart cart = cartRepository.findById(username).orElse(null);
         if (cart != null) {
-            for (Map.Entry<Item, Integer> entry : cart.getItems().entrySet()) {
-                if (entry.getKey().getId() == itemId) {
-                    cart.removeItem(entry.getKey());
+            for (Item i:cart.getItems()) {
+                if(i.getId() == itemId){
+                    cart.removeItem(i);
                 }
             }
             cartRepository.save(cart);
@@ -91,6 +91,7 @@ public class CartRestController {
         item.setTitle(body.get("title").toString());
         item.setDescription(body.get("description").toString());
         item.setUnitPrice((double) body.get("unitPrice"));
+        item.setQuantity((int) body.get("quantity"));
         Cart cart = cartRepository.findById(username).orElse(null);
         if (cart != null) {
             cart.addItem(item);
@@ -98,16 +99,7 @@ public class CartRestController {
         }
     }
 
-    public double calculateCartTotal(Cart cart){
-        double total = 0.0;
-        for (Map.Entry<Item, Integer> entry : cart.getItems().entrySet()) {
-            Item item = entry.getKey();
-            int quantity = entry.getValue();
-            double d = item.getUnitPrice() * quantity;
-            total += d;
-        }
-        return total;
-    }
+
 
 
 }
