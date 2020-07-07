@@ -3,6 +3,8 @@ package trinity.itemservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/item")
 public class ItemRestController {
@@ -24,12 +26,18 @@ public class ItemRestController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public Item getItem(@PathVariable("id") int id) {
+        System.out.println(itemJPARepository.findByItemId(id).toString());
         return itemJPARepository.findByItemId(id);
+    }
+
+    @RequestMapping(path = "/all", method = RequestMethod.GET)
+    public List<Item> getAllItems() {
+        return itemJPARepository.findAll();
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void deleteItem(@PathVariable("id") int id) {
-        itemJPARepository.delete(itemJPARepository.findByItemId(id));
+        itemJPARepository.delete((itemJPARepository.findByItemId(id)));
     }
 
 

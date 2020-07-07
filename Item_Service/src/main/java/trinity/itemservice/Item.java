@@ -1,13 +1,13 @@
 package trinity.itemservice;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Item {
 
     @Id
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int itemId;
 
     @Column
