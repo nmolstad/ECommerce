@@ -98,5 +98,16 @@ public class CartRestController {
         }
     }
 
+    public double calculateCartTotal(Cart cart){
+        double total = 0.0;
+        for (Map.Entry<Item, Integer> entry : cart.getItems().entrySet()) {
+            Item item = entry.getKey();
+            int quantity = entry.getValue();
+            double d = item.getUnitPrice() * quantity;
+            total += d;
+        }
+        return total;
+    }
+
 
 }
