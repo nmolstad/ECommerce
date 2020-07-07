@@ -1,6 +1,35 @@
 body {
-  padding: 50px;
+  margin: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.header {
+  background-color: #333;
+  padding: 10px;
+  padding-bottom: 50px;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+.headerTitle {
+  text-align: center;
+  color: #FFF;
+}
+
+.cart a {
+  float: right;
+}
+
+.cart button {
+  font-size: 16px;
+}
+
+.item {
+  margin: 20px;
+  background-color:#f2f2f2;
+  padding: 20px;
 }
 
 a {

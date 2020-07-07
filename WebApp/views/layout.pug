@@ -1,7 +1,13 @@
 doctype html
 html
   head
-    title= title
+    title= "E-Commerce"
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    div(class="header")
+      a(href="/")
+        h1(class="headerTitle")="E-Commerce"
+      div(class="cart")
+        a(href="/cart")
+          button="Cart"
     block content
