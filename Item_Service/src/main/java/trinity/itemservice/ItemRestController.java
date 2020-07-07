@@ -30,7 +30,7 @@ public class ItemRestController {
         return itemJPARepository.findByItemId(id);
     }
 
-    @RequestMapping(path = "/all", method = RequestMethod.GET)
+    @RequestMapping(path = "", method = RequestMethod.GET)
     public List<Item> getAllItems() {
         return itemJPARepository.findAll();
     }
