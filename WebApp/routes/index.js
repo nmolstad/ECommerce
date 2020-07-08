@@ -36,12 +36,31 @@ router.get('/cart', function(req, res, next) {
     }
   };
 
-  xmlHttp.open("GET", "http://localhost:8080/item", true);
+  xmlHttp.open("GET", "http://cart-service:8080/cart/showCart/testingCart", true);
   xmlHttp.send();
 });
 
 router.get('/add-item', function(req, res, next) {
   res.render('additem');
+});
+
+router.post('/add-item', function(req, res, next) {
+  var title = req.body.title;
+  var description = req.body.description;
+  var price = req.body.price;
+
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      res.redirect("/");
+    }
+  }
+
+  xmlHttp.open("POST", "http://item-service:8080/item", true);
+  xmlHttp.setRequestHeader("Content-Type", "application/json");
+  xmlHttp.send(JSON.stringify({"title":title, "description":description, "unitPrice":price}));
+
+
 });
 
 module.exports = router;

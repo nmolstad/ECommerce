@@ -20,3 +20,8 @@ services:
         build: Cart_Service
         ports:
             - "3252:8080"
+            
+    cart-db:
+        image: redis
+        ports:
+            - "6379:6379"

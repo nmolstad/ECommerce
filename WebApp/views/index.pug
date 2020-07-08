@@ -7,6 +7,6 @@ block content
         h3=item.title
         h4="$" + item.unitPrice
         h5=item.description
-        button="Add to cart"
+        button(onclick="AddItemToCart()")="Add to cart"
   else
     h2="There are currently no items"
