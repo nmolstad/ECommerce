@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
     }
   };
 
-  xmlHttp.open("GET", "http://item_service:8080/item", true);
+  xmlHttp.open("GET", "http://item-service:8080/item", true);
   // xmlHttp.setRequestHeader("Authorization", "Basic YWRtaW46YWRtaW4=");
   xmlHttp.send();
 });
@@ -38,6 +38,10 @@ router.get('/cart', function(req, res, next) {
 
   xmlHttp.open("GET", "http://localhost:8080/item", true);
   xmlHttp.send();
+});
+
+router.get('/add-item', function(req, res, next) {
+  res.render('additem');
 });
 
 module.exports = router;

@@ -35,3 +35,7 @@ body {
 a {
   color: #00B7FF;
 }
+
+form input {
+  margin: 5px;
+}

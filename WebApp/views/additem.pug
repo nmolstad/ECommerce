@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    div(class="item")
+        form(action="/" onsubmit="addItem()")
+            label(for="title")="Title"
+            input(type="text" id="title" name="title" required)
+            br
+            label(for="description")="Description"
+            input(type="text" id="description" name="description" required)
+            br
+            label(for="price")="Price"
+            input(type="number" id="price" name="price" min="0.01" step="0.01" required)
+            br
+            input(type="submit" value="Add item")

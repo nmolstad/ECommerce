@@ -1,22 +1,22 @@
 version: '3'
 
 services:
-    web_app:
+    web-app:
         build: WebApp
         ports:
-            - "3000:3000"
+            - "3200:3000"
    
-    item_service:
+    item-service:
         build: Item_Service
         ports:
             - "3452:8080"
     
-    item_db:
+    item-db:
         build: Item_DB
         ports:
             - "4567:3306"
          
-    cart_service:
+    cart-service:
         build: Cart_Service
         ports:
             - "3252:8080"

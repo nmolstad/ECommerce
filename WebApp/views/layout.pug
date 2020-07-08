@@ -3,10 +3,14 @@ html
   head
     title= "E-Commerce"
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="/javascripts/script.js")
   body
     div(class="header")
       a(href="/")
         h1(class="headerTitle")="E-Commerce"
+      div(style="float:left")
+        a(href="/add-item")
+          button="Add item"
       div(class="cart")
         a(href="/cart")
           button="Cart"
