@@ -25,3 +25,13 @@ services:
         image: redis
         ports:
             - "6379:6379"
+    
+    email-service:
+        build: Email_Service
+        ports:
+            - "3253:8080"
+    
+    checkout-service:
+        build: Checkout_Service
+        ports:
+            - "3254:8080"

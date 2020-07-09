@@ -11,6 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>email_svc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>email_svc</name>
     <description>Demo project for Spring Boot</description>
 
