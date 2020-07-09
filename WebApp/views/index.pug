@@ -2,11 +2,13 @@ extends layout
 
 block content
   if(items && items.length > 0)
+
     for item in items
       div(class="item")
         h3=item.title
         h4="$" + item.unitPrice
         h5=item.description
-        button(onclick="AddItemToCart()")="Add to cart"
+        form(method="POST" action=`/add-item-to-cart/${item.id}/${item.title}/${item.description}/${item.unitPrice}`)
+          button="Add to cart"
   else
     h2="There are currently no items"

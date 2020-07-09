@@ -74,23 +74,37 @@ public class CartRestController {
     @RequestMapping(path = "/removeItem/{itemId}/{username}", method = RequestMethod.DELETE)
     public void removeItem(@PathVariable String username, @PathVariable int itemId) {
         Cart cart = cartRepository.findById(username).orElse(null);
+        Item item = null;
         if (cart != null) {
             for (Item i:cart.getItems()) {
                 if(i.getId() == itemId){
-                    cart.removeItem(i);
+                    item = i;
                 }
             }
+            if(item != null) cart.removeItem(item);
             cartRepository.save(cart);
         }
     }
 
     @RequestMapping(path = "/addToCart/{username}", method = RequestMethod.POST)
     public void addItem(@PathVariable String username, @RequestBody Map<String, Object> body) {
+        double price = 0;
+
+        try {
+            price = (double) body.get("unitPrice");
+        } catch (ClassCastException ex) {
+
+        }
+
+        if(price >= 0) {
+            price = Double.parseDouble((String) body.get("unitPrice"));
+        }
+
         Item item = new Item();
         item.setId((int) body.get("id"));
         item.setTitle(body.get("title").toString());
         item.setDescription(body.get("description").toString());
-        item.setUnitPrice((double) body.get("unitPrice"));
+        item.setUnitPrice(price);
         item.setQuantity((int) body.get("quantity"));
         Cart cart = cartRepository.findById(username).orElse(null);
         if (cart != null) {

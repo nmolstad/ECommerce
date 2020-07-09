@@ -3,8 +3,9 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
+  setUUID(req)
+
   var xmlHttp = new XMLHttpRequest();
-  // xmlHttp.withCredentials = true;
 
   xmlHttp.onreadystatechange = function() {
     if(this.readyState == 4) {
@@ -12,36 +13,37 @@ router.get('/', function(req, res, next) {
       if(this.status == 200) {
         items = JSON.parse(this.responseText);
       }
-      res.render('index', { items: items });
+      res.render('index', { items: items, username: req.session.username });
     }
   };
 
   xmlHttp.open("GET", "http://item-service:8080/item", true);
-  // xmlHttp.setRequestHeader("Authorization", "Basic YWRtaW46YWRtaW4=");
   xmlHttp.send();
 });
 
 router.get('/cart', function(req, res, next) {
+  setUUID(req)
+
   var xmlHttp = new XMLHttpRequest();
 
   xmlHttp.onreadystatechange = function() {
     if(this.readyState == 4) {
-      var items = null;
+      var cart = null;
       if(this.status == 200) {
-        items = JSON.parse(this.responseText);
-        items = {items: [{title: "yes", unitPrice: 23, quantity: 10, totalPrice: 230}],
-                  total: 230};
+        cart = JSON.parse(this.responseText);
       }
-      res.render('cart', { cart: items });
+      res.render('cart', { cart: cart, username: req.session.username });
     }
   };
 
-  xmlHttp.open("GET", "http://cart-service:8080/cart/showCart/testingCart", true);
+  xmlHttp.open("GET", `http://cart-service:8080/cart/showCart/${req.session.username}`, true);
   xmlHttp.send();
 });
 
 router.get('/add-item', function(req, res, next) {
-  res.render('additem');
+  setUUID(req)
+
+  res.render('additem', {username: req.session.username});
 });
 
 router.post('/add-item', function(req, res, next) {
@@ -59,8 +61,62 @@ router.post('/add-item', function(req, res, next) {
   xmlHttp.open("POST", "http://item-service:8080/item", true);
   xmlHttp.setRequestHeader("Content-Type", "application/json");
   xmlHttp.send(JSON.stringify({"title":title, "description":description, "unitPrice":price}));
-
-
 });
+
+router.post('/add-item-to-cart/:id/:title/:description/:price', function(req, res, next) {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("POST", `http://cart-service:8080/cart/addToCart/${req.session.username}`, true);
+  xmlHttp.setRequestHeader("Content-Type", "application/json");
+  xmlHttp.send(JSON.stringify({"id":parseInt(req.params.id), "title":req.params.title, "description":req.params.description, "unitPrice":req.params.price, "quantity": 1}));
+
+  xmlHttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      res.redirect("/");
+    }
+  }
+});
+
+router.post('/cart/changeQuantity/:id', function(req, res, next) {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("PATCH", `http://cart-service:8080/cart/changeQuantity/${req.params.id}/${req.body.quantity}/${req.session.username}`, true);
+  xmlHttp.send();
+
+  xmlHttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      res.redirect("/cart");
+    }
+  }
+});
+
+router.post('/cart/removeItem/:id', function(req, res, next) {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("DELETE", `http://cart-service:8080/cart/removeItem/${req.params.id}/${req.session.username}`, true);
+  xmlHttp.send();
+
+  xmlHttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      res.redirect("/cart");
+    }
+  }
+});
+
+
+function setUUID(req) {
+  if(req.session.username == null) {
+    req.session.username = uuidv4();
+
+    console.log(req.session.username);
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", `http://cart-service:8080/cart/createCart/${req.session.username}`, true);
+    xmlHttp.send();
+  }
+}
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });}
 
 module.exports = router;
