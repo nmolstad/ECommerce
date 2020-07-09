@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RedisHash("cart")
 public class Cart {
-    private List<Item> items;
+    private List<Item> items =  new ArrayList<>();
     @Id
     private String username;
     private double total;
