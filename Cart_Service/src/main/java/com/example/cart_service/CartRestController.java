@@ -61,7 +61,7 @@ public class CartRestController {
         }
     }
 
-    @RequestMapping(path = "/clearCart/{username}", method = RequestMethod.GET)
+    @RequestMapping(path = "/clearCart/{username}", method = RequestMethod.POST)
     public void clearCart(@PathVariable String username) {
         Cart cart = cartRepository.findById(username).orElse(null);
         if (cart != null) {
