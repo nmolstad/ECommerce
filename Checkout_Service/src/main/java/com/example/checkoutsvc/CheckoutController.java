@@ -16,7 +16,7 @@ public class CheckoutController {
     RestService restService;
 
 
-    @RequestMapping(path = "/${username}", method = RequestMethod.POST)
+    @RequestMapping(path = "/{username}", method = RequestMethod.POST)
     public void placeOrder(@RequestBody Map<String, Object> body, @PathVariable String username) {
         String cc = body.get("cardNumber").toString();
         String email = body.get("email").toString();

@@ -7,15 +7,16 @@ block content
                 div(class="item")
                     h3=item.title
                     h4="$" + item.unitPrice
-                    form(method="POST" action=`/cart/changeQuantity/${item.id}`)
+                    form(method="POST" action=`/cart/change-quantity/${item.id}`)
                         label="Quantity: "
                         input(type="number" id="quantity" name="quantity" min="1" value=item.quantity)
                         button="Submit"
                     h5="$" + item.subtotal
-                    form(method="POST" action=`/cart/removeItem/${item.id}`)
+                    form(method="POST" action=`/cart/remove-item/${item.id}`)
                         button="Remove from cart"
             h2="Total - $" + cart.total
-            button="Checkout"
+            a(href="/cart/checkout")
+                button="Checkout"
         else
             h2="Your cart is currently empty"
             a(href="/")

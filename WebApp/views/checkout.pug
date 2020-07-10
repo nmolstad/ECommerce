@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    form(method="POST" action=`/cart/checkout`)
+        label="Credit Card: "
+        input(type="number" id="cc" name="cc" min="1"  required)
+        label="Email: "
+        input(type="text" id="email" name="email" required)
+        button="Checkout"

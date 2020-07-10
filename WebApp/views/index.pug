@@ -10,5 +10,9 @@ block content
         h5=item.description
         form(method="POST" action=`/add-item-to-cart/${item.id}/${item.title}/${item.description}/${item.unitPrice}`)
           button="Add to cart"
+        a(href=`/edit-item/${item.id}`)
+          button="Edit item"
+        form(method="POST" action=`/delete-item/${item.id}`)
+          button="Delete item"
   else
     h2="There are currently no items"

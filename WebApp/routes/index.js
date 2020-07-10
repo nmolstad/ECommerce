@@ -76,7 +76,55 @@ router.post('/add-item-to-cart/:id/:title/:description/:price', function(req, re
   }
 });
 
-router.post('/cart/changeQuantity/:id', function(req, res, next) {
+router.post('/delete-item/:id', function(req, res, next) {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("DELETE", `http://item-service:8080/item/${req.params.id}`, true);
+  xmlHttp.send();
+
+  xmlHttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      res.redirect("/");
+    }
+  }
+});
+
+router.get('/edit-item/:id', function(req, res, next) {
+  setUUID(req)
+
+  var xmlHttp = new XMLHttpRequest();
+
+  xmlHttp.onreadystatechange = function() {
+    if(this.readyState == 4) {
+      var item = null;
+      if(this.status == 200) {
+        item = JSON.parse(this.responseText);
+      }
+      res.render('editItem', { item: item, username: req.session.username });
+    }
+  };
+
+  xmlHttp.open("GET", `http://item-service:8080/item/${req.params.id}`, true);
+  xmlHttp.send();
+});
+
+router.post('/edit-item/:id', function(req, res, next) {
+  var title = req.body.title;
+  var description = req.body.description;
+  var price = req.body.price;
+
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      res.redirect("/");
+    }
+  }
+
+  xmlHttp.open("PATCH", `http://item-service:8080/item/${req.params.id}`, true);
+  xmlHttp.setRequestHeader("Content-Type", "application/json");
+  xmlHttp.send(JSON.stringify({"title":title, "description":description, "unitPrice":price}));
+});
+
+router.post('/cart/change-quantity/:id', function(req, res, next) {
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("PATCH", `http://cart-service:8080/cart/changeQuantity/${req.params.id}/${req.body.quantity}/${req.session.username}`, true);
   xmlHttp.send();
@@ -88,7 +136,7 @@ router.post('/cart/changeQuantity/:id', function(req, res, next) {
   }
 });
 
-router.post('/cart/removeItem/:id', function(req, res, next) {
+router.post('/cart/remove-item/:id', function(req, res, next) {
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("DELETE", `http://cart-service:8080/cart/removeItem/${req.params.id}/${req.session.username}`, true);
   xmlHttp.send();
@@ -96,6 +144,23 @@ router.post('/cart/removeItem/:id', function(req, res, next) {
   xmlHttp.onreadystatechange = function() {
     if (this.readyState == 4) {
       res.redirect("/cart");
+    }
+  }
+});
+
+router.get('/cart/checkout', function(req, res, next) {
+  res.render('checkout');
+});
+
+router.post('/cart/checkout', function(req, res, next) {
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("POST", `http://checkout-service:8080/checkout/${req.session.username}`, true);
+  xmlHttp.setRequestHeader("Content-Type", "application/json");
+  xmlHttp.send(JSON.stringify({"cardNumber":req.body.cc, "email":req.body.email}));
+
+  xmlHttp.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      res.redirect("/");
     }
   }
 });

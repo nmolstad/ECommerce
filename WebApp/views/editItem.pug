@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    if(item)
+        div(class="item")
+            form(method="POST" action=`/edit-item/${item.id}`)
+                label(for="title")="Title"
+                input(type="text" id="title" name="title" required value=item.title)
+                br
+                label(for="description")="Description"
+                input(type="text" id="description" name="description" required value=item.description)
+                br
+                label(for="price")="Price"
+                input(type="number" id="price" name="price" min="0.01" step="0.01" required value=item.unitPrice)
+                br
+                button()="Submit"
