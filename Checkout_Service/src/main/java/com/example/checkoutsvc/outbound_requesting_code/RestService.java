@@ -43,4 +43,22 @@ public class RestService {
             return null;
         }
     }
+
+    public Post clearCart(String url){
+        // create headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+        Map<String, Object> map = new HashMap<>();
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
+
+        ResponseEntity<Post> response = this.restTemplate.postForEntity(url, entity, Post.class);
+
+        if (response.getStatusCode() == HttpStatus.CREATED) {
+            return response.getBody();
+        } else {
+            return null;
+        }
+    }
 }
