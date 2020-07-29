@@ -1,0 +1,6 @@
+nash\molstad\apigateway\UserRepository.class
+nash\molstad\apigateway\ServletInitializer.class
+nash\molstad\apigateway\ApiGatewayApplication.class
+nash\molstad\apigateway\SecurityConfiguration.class
+nash\molstad\apigateway\UserController.class
+nash\molstad\apigateway\User.class

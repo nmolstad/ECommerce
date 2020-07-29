@@ -1,0 +1,7 @@
+nash\molstad\orderservice\OrderServiceApplication.class
+nash\molstad\orderservice\Models\Order.class
+nash\molstad\orderservice\ItemRepository.class
+nash\molstad\orderservice\OrderRestController.class
+nash\molstad\orderservice\ServletInitializer.class
+nash\molstad\orderservice\Models\Item.class
+nash\molstad\orderservice\OrderRepository.class
