@@ -1,0 +1,4 @@
+com\example\email_svc\ServletInitializer.class
+com\example\email_svc\EmailSvcApplication.class
+com\example\email_svc\EmailController.class
+com\example\email_svc\EmailSVCImpl.class

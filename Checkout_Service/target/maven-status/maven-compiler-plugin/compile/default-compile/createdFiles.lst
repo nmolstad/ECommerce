@@ -1,0 +1,10 @@
+com\example\checkoutsvc\Email.class
+com\example\checkoutsvc\CheckoutController.class
+com\example\checkoutsvc\CheckoutsvcApplication.class
+com\example\checkoutsvc\outbound_requesting_code\Order.class
+com\example\checkoutsvc\Item.class
+com\example\checkoutsvc\ServletInitializer.class
+com\example\checkoutsvc\MyConfiguration.class
+com\example\checkoutsvc\MyConfiguration$1.class
+com\example\checkoutsvc\outbound_requesting_code\RestService.class
+com\example\checkoutsvc\outbound_requesting_code\Post.class
