@@ -43,6 +43,8 @@ services:
         
     order-db:
         build: order-db
+        ports:
+            - "4568:3306"
         
     api-gateway:
         build: api-gateway
@@ -51,6 +53,8 @@ services:
         
     user-db:
         build: user-db
+        ports:
+            - "4569:3306"
         
     svc-registry:
         build: Service_Registry
