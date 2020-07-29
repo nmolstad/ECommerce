@@ -1,0 +1,7 @@
+trinity\itemservice\MyConfiguration$1.class
+trinity\itemservice\ItemserviceApplication.class
+trinity\itemservice\MyConfiguration.class
+trinity\itemservice\ItemRestController.class
+trinity\itemservice\Item.class
+trinity\itemservice\ItemJPARepository.class
+trinity\itemservice\ServletInitializer.class
